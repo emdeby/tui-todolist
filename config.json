@@ -4,6 +4,7 @@
   "highlight_color": "47",
   "line_color": "37",
   "date": "On",
+  "date_format": "%Y-%m-%d",
   "title": "On",
   "lines": "On"
 }

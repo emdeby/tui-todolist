@@ -8,7 +8,6 @@ source "$SCRIPT_DIR/todolist_functions.sh"
 ### DECLARE ###
 
 # Constants #
-date=$(date +"%Y-%m-%d")
 bold=$(tput bold)
 normal=$(tput sgr0)
 cursive=$(tput sitm)
@@ -35,8 +34,11 @@ highlightcolor="$(jq -r .highlight_color $CONFIG_FILE)"
 textcolor="$(jq -r .text_color $CONFIG_FILE)"
 linecolor="$(jq -r .line_color $CONFIG_FILE)"
 date_setting="$(jq -r .date $CONFIG_FILE)"
+date_format_setting="$(jq -r .date_format $CONFIG_FILE)"
 title_setting="$(jq -r .title $CONFIG_FILE)"
 lines_setting="$(jq -r .lines $CONFIG_FILE)"
+
+date=$(date +"$date_format_setting")
 
 # ARRAYS #
 todolist=()
@@ -58,10 +60,11 @@ declare -A visuals=(
     ["Highlight color"]="White2"
     ["Line color"]="White3"
     ["Date"]=""$date_setting"4"
-    ["Title"]=""$title_setting"5"
-    ["Lines"]=""$lines_setting"6"
+    ["Date format"]=""$date_format_setting"5"
+    ["Title"]=""$title_setting"6"
+    ["Lines"]=""$lines_setting"7"
 )
-visualsOrder=("Theme" "Text color" "Highlight color" "Line color" "Date" "Title" "Lines")
+visualsOrder=("Theme" "Text color" "Highlight color" "Line color" "Date" "Date format" "Title" "Lines")
 
 declare -A keybindings=( 
     ["Move up"]="W / ARROW UP0" 
@@ -469,9 +472,9 @@ do
                                                             visuals["${visualsOrder[$viswhere]}"]="Minimal$viswhere"
                                                             visuals["Date"]="Off4"
                                                             change_setting "date" "Off"
-                                                            visuals["Title"]="Off5"
+                                                            visuals["Title"]="Off6"
                                                             change_setting "title" "Off"
-                                                            visuals["Lines"]="Off6"
+                                                            visuals["Lines"]="Off7"
                                                             change_setting "lines" "Off"
                                                             change_setting "theme" "Minimal"
                                                         ;;
@@ -480,9 +483,12 @@ do
                                                             visuals["${visualsOrder[$viswhere]}"]="Default$viswhere"
                                                             visuals["Date"]="On4"
                                                             change_setting "date" "On"
-                                                            visuals["Title"]="On5"
+                                                            visuals["Date format"]="%Y-%m-%d5"
+                                                            change_setting "date_format" "%Y-%m-%d"
+                                                            date=$(date +"%Y-%m-%d")
+                                                            visuals["Title"]="On6"
                                                             change_setting "title" "On"
-                                                            visuals["Lines"]="On6"
+                                                            visuals["Lines"]="On7"
                                                             change_setting "lines" "On"
 
                                                             change_setting "theme" "Default"
@@ -498,9 +504,12 @@ do
                                                             change_setting "highlight_color" "47"
                                                             visuals["Date"]="On4"
                                                             change_setting "date" "On"
-                                                            visuals["Title"]="On5"
+                                                            visuals["Date format"]="%Y-%m-%d5"
+                                                            change_setting "date_format" "%Y-%m-%d"
+                                                            date=$(date +"%Y-%m-%d")
+                                                            visuals["Title"]="On6"
                                                             change_setting "title" "On"
-                                                            visuals["Lines"]="On6"
+                                                            visuals["Lines"]="On7"
                                                             change_setting "lines" "On"
                                                             visuals["Line color"]="White3"
                                                             linecolor=37
@@ -625,6 +634,31 @@ do
                                                         ;;
                                                     esac
                                                 ;;
+
+                                                "Date format")
+                                                    visuals["Theme"]="Custom0"
+                                                    change_setting "theme" "Custom"
+                                                    case ${visuals["${visualsOrder[$viswhere]}"]} in
+                                                        *"%Y-%m-%d"*)
+                                                            visuals["Date format"]="%m-%d-%Y5"
+                                                            change_setting "date_format" "%m-%d-%Y"
+                                                            date=$(date +"%m-%d-%Y")
+                                                        ;;
+                                                        
+                                                        *"%m-%d-%Y"*)
+                                                            visuals["Date format"]="%d-%m-%Y5"
+                                                            change_setting "date_format" "%d-%m-%Y"
+                                                            date=$(date +"%d-%m-%Y")
+                                                        ;;
+
+                                                        *"%d-%m-%Y"*)
+                                                            visuals["Date format"]="%Y-%m-%d5"
+                                                            change_setting "date_format" "%Y-%m-%d"
+                                                            date=$(date +"%Y-%m-%d")
+                                                        ;;
+                                                    esac
+                                                ;;
+
                                                 Title)
                                                     visuals["Theme"]="Custom0"
                                                     change_setting "theme" "Custom"
