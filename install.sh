@@ -43,49 +43,49 @@ check_dependency() {        # check if dependencies are installed, if not: insta
 
 clean_up() {
     echo "Cleaning up..."
-    sleep 1
+    sleep 0.5
     if [[ -d /usr/local/lib/tui-todolist/ ]]
     then
         echo "Executing 'sudo rm -r /usr/local/lib/tui-todolist/'..."
-        sleep 1
+        sleep 0.5
         sudo rm -r /usr/local/lib/tui-todolist/
-        sleep 1
+        sleep 0.5
         echo " > Done!"
     fi
 
     if [[ -f tui-todolist ]]
     then
         echo "Executing 'rm tui-todolist'..."
-        sleep 1
+        sleep 0.5
         rm tui-todolist
-        sleep 1
+        sleep 0.5
         echo " > Done!"
     fi
 
     if [[ -d ~/.config/tui-todolist/ ]]
     then
         echo "Executing 'sudo rm -r ~/.config/tui-todolist/'.."
-        sleep 1
+        sleep 0.5
         sudo rm -r ~/.config/tui-todolist/
-        sleep 1
+        sleep 0.5
         echo " > Done!"
     fi
 
     if [[ -d ~/.local/share/tui-todolist/ ]]
     then
         echo "Executing 'sudo rm -r ~/.local/share/tui-todolist/'.."
-        sleep 1
+        sleep 0.5
         sudo rm -r ~/.local/share/tui-todolist/
-        sleep 1
+        sleep 0.5
         echo " > Done!"
     fi
     
     if [[ -f /usr/local/bin/tui-todolist ]]
     then
         echo "Executing 'sudo rm /usr/local/bin/tui-todolist'..."
-        sleep 1
+        sleep 0.5
         sudo rm /usr/local/bin/tui-todolist
-        sleep 1
+        sleep 0.5
         echo " > Done!"
     fi
     exit
@@ -125,12 +125,29 @@ then
     echo "Creating directory '~/.config/tui-todolist'"
     sleep 0.5
     sudo mkdir ~/.config/tui-todolist
+    sudo chmod 777 ~/.config/tui-todolist
+    echo " > Done!"
+    sleep 0.5
+
+    echo "Creating directory '~/.config/tui-todolist/other'"
+    sleep 0.5
+    sudo mkdir ~/.config/tui-todolist/other
+    sudo chmod 777 ~/.config/tui-todolist/other
+    echo " > Done!"
+    sleep 0.5
+
+    echo "Creating '~/.config/tui-todolist/other/show_stalled.txt'"
+    sleep 0.5
+    sudo touch ~/.config/tui-todolist/other/show_stalled.txt
+    sudo chmod 666 ~/.config/tui-todolist/other/show_stalled.txt
+    echo 1 > ~/.config/tui-todolist/other/show_stalled.txt
     echo " > Done!"
     sleep 0.5
 
     echo "Creating directory '~/.local/share/tui-todolist'"
     sleep 0.5
     sudo mkdir ~/.local/share/tui-todolist
+    sudo chmod 777 ~/.local/share/tui-todolist
     echo " > Done!"
     sleep 0.5
 
@@ -200,6 +217,7 @@ then
         echo "Creating directory '~/.local/share/tui-todolist'"
         sleep 1
         sudo mkdir ~/.local/share/tui-todolist
+        sudo chmod 777 ~/.local/share/tui-todolist
         echo " > Done!"
         sleep 1
     else
