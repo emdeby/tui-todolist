@@ -166,6 +166,7 @@ then
     echo "Copy/pasting 'config.json' into '~/.config/tui-todolist/'"
     sleep 0.5
     sudo cp config.json ~/.config/tui-todolist/config.json
+    sudo chmod 666 ~/.config/tui-todolist/config.json
     echo " > Done!"
     sleep 0.5
 
