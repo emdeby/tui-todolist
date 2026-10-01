@@ -2,7 +2,8 @@
 sleep 0.1
 
 ## Import functions
-source /usr/local/lib/tui-todolist/todolist_functions.sh
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/todolist_functions.sh"
 
 ### DECLARE ###
 
